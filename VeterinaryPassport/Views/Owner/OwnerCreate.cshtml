@@ -1,0 +1,63 @@
+﻿@model VeterinaryPassport.Models.Owner
+
+@{
+    ViewBag.Title = "Добавление владельца";
+}
+
+<div class="create-and-edit-form">
+    <form class="add-user-form" method="post" asp-controller="Owner" asp-action="OwnerCreate" asp-antiforgery="true">
+
+        <div class="form-group">
+            <label asp-for="Surname" class="control-label"></label>
+            <div class="form-group-container">
+                <input type="text" asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <div class="form-group-container">
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Patronymic" class="control-label"></label>
+            <div class="form-group-container">
+                <input type="text" asp-for="Patronymic" class="form-control" />
+                <span asp-validation-for="Patronymic" class="text-danger"></span>
+            </div>
+        </div>
+          <div class="form-group">
+            <label asp-for="PhoneNumber" class="control-label"></label>
+            <div class="form-group-container">
+                <input type="text" asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+          <div class="form-group">
+            <label asp-for="Address" class="control-label"></label>
+            <div class="form-group-container">
+                <input type="text" asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Login" class="control-label"></label>
+            <div class="form-group-container">
+                <input type="text" asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password" class="control-label"></label>
+            <div class="form-group-container">
+                <input type="text" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Добавить" class="btn btn-outline-secondary" />
+        </div>
+    </form>
+</div>

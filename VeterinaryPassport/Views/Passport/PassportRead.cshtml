@@ -1,0 +1,56 @@
+﻿@model Pagination<Passport>
+
+@{
+    ViewBag.Title = "Паспорт";
+}
+<a asp-action="PassportCreate" class="btn btn-outline-secondary button-add">Добавить</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                <p>@Html.DisplayNameFor(model => model.FirstOrDefault().PetId)</p>
+            </th>
+            <th>
+                <p>@Html.DisplayNameFor(model => model.FirstOrDefault().OwnerId)</p>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Passport item in Model)
+        {
+            <tr>
+                <td>
+                    <p>@item.Pet.Name @item.Pet.Breed</p>
+                </td>
+                <td>
+                    <p>@item.Owner.Surname @item.Owner.Name @item.Owner.Surname</p>
+                </td>
+                <td>
+                    <a class="btn btn-outline-secondary" asp-controller="Passport" asp-action="PassportDetail" asp-route-id="@item.Id">Подробней</a>
+                    <form asp-controller="Passport" asp-action="PassportDelete" asp-route-id="@item.Id">
+                        <button class="btn btn-outline-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="PassportRead"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-secondary @prevDisabled">
+    Пред
+</a>
+<a asp-action="PassportRead"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-outline-secondary @nextDisabled">
+    След
+</a>

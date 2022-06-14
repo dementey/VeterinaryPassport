@@ -1,0 +1,71 @@
+﻿@model Pagination<Vaccine>
+
+@{
+    ViewBag.Title = "Список вакцин";
+}
+
+<div class="index-main">
+    <div>
+        <p>
+          <h2>Питомец</h2> @ViewBag.pet.Name @ViewBag.pet.Breed <h2>Владелец</h2> @ViewBag.owner.Surname @ViewBag.owner.Name @ViewBag.owner.Patronymic
+        </p>
+        <a asp-action="CreateVaccine" asp-route-id="@ViewBag.MedId" class="btn btn-outline-secondary button-add">Добавить</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Name)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().DateVaccination)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().VetId)</p>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Vaccine item in Model)
+            {
+                <tr>
+                    <td>
+                        <p>@item.Name</p>
+                    </td>
+                    <td>
+                        <p>@item.DateVaccination.ToString("dd/MM/yyyy")</p>
+                    </td>
+                    <td>
+                        <p>@item.Vet.Surname @item.Vet.Name @item.Vet.Patronymic</p>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-secondary" asp-controller="Vaccine" asp-action="EditVaccine" asp-route-id="@item.Id">Редактировать</a>
+                        <form asp-controller="Vaccine" asp-action="DeleteVaccine" asp-route-id="@item.Id">
+                            <button class="btn btn-outline-danger">Удалить</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="VaccineRead"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-outline-secondary @prevDisabled">
+        Пред
+    </a>
+    <a asp-action="VaccineRead"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-outline-secondary @nextDisabled">
+        След
+    </a>
+</div>

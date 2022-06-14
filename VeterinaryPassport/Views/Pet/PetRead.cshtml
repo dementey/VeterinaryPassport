@@ -1,0 +1,74 @@
+﻿@model Pagination<Pet>
+
+@{
+    ViewBag.Title = "Ветеринари";
+}
+  <a asp-action="PetCreate" class="btn btn-outline-secondary button-add">Добавить</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Name)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Kind)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Sex)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Breed)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().DOB)</p>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Pet item in Model)
+            {
+                <tr>
+                    <td>
+                        <p>@item.Name</p>
+                    </td>
+                    <td>
+                        <p>@item.Kind</p>
+                    </td>
+                    <td>
+                        <p>@item.Sex</p>
+                    </td>
+                    <td>
+                        <p>@item.Breed</p>
+                    </td>
+                    <td>
+                        <p>@item.DOB</p>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-secondary" asp-controller="Pet" asp-action="PetEdit" asp-route-id="@item.Id">Редактировать</a>
+                        <form asp-controller="Pet" asp-action="PetDelete" asp-route-id="@item.Id">
+                            <button class="btn btn-outline-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="PetRead"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-outline-secondary @prevDisabled">
+        Пред
+    </a>
+    <a asp-action="PetRead"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-outline-secondary @nextDisabled">
+        След
+    </a>

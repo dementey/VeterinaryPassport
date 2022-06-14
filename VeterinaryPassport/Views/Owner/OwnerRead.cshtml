@@ -1,0 +1,86 @@
+﻿@model Pagination<Owner>
+
+@{
+    ViewBag.Title = "Владельцы";
+}
+  <a asp-action="OwnerCreate" class="btn btn-outline-secondary button-add">Добавить</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Surname)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Name)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Patronymic)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().PhoneNumber)</p>
+                </th>
+                 <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Address)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Login)</p>
+                </th>
+                <th>
+                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Password)</p>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Owner item in Model)
+            {
+                <tr>
+                    <td>
+                        <p>@item.Surname</p>
+                    </td>
+                    <td>
+                        <p>@item.Name</p>
+                    </td>
+                    <td>
+                        <p>@item.Patronymic</p>
+                    </td>
+                    <td>
+                        <p>@item.PhoneNumber</p>
+                    </td>
+                    <td>
+                        <p>@item.Address</p>
+                    </td>
+                    <td>
+                        <p>@item.Login</p>
+                    </td>
+                    <td>
+                        <p>@item.Password</p>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-secondary" asp-controller="Owner" asp-action="OwnerEdit" asp-route-id="@item.Id">Редактировать</a>
+                        <form asp-controller="Owner" asp-action="OwnerDelete" asp-route-id="@item.Id">
+                            <button class="btn btn-outline-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="OwnerRead"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-outline-secondary @prevDisabled">
+        Пред
+    </a>
+    <a asp-action="OwnerRead"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-outline-secondary @nextDisabled">
+        След
+    </a>
