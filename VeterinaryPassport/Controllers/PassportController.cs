@@ -12,10 +12,12 @@ namespace VeterinaryPassport.Controllers
         {
             db = context;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> PassportRead(string currentFilter, string searchString, int? pageNumber)
         {
@@ -29,7 +31,10 @@ namespace VeterinaryPassport.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
-            var passport = db.Passports.Select(p => p).Include(o => o.Owner).Include(p => p.Pet);
+            var passport = db.Passports.Include(o => o.Owner).Include(p => p.Pet).Select(p => p);
+            if (!String.IsNullOrEmpty(searchString))
+                passport = passport.Where(s => s.Owner.Surname.Contains(searchString));
+
             int pageSize = 5;
 
             return View(await Pagination<Passport>.CreatePaginationAsync(passport, pageNumber ?? 1, pageSize));
@@ -39,6 +44,7 @@ namespace VeterinaryPassport.Controllers
         public IActionResult PassportCreate()
         {
             ViewData["VaccinesListId"] = new SelectList(db.Owners, "Id", "Name");
+
             return View();
         }
 
@@ -96,6 +102,7 @@ namespace VeterinaryPassport.Controllers
 
             return RedirectToAction("PassportRead");
         }
+
         [HttpGet]
         public async Task<IActionResult> PassportDetail(int? id)
         {
@@ -104,6 +111,22 @@ namespace VeterinaryPassport.Controllers
             passport.Pet = await db.Pets.FirstOrDefaultAsync(p => p.Id == passport.PetId);
 
             return View(passport);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PassportDelete(int? id)
+        {
+            if (id != null)
+            {
+                Passport passport = await db.Passports.FirstOrDefaultAsync(p => p.Id == id);
+                Pet pet = await db.Pets.FirstOrDefaultAsync(p => p.Id == passport.PetId);
+                db.Passports.Remove(passport);
+                db.Pets.Remove(pet);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("PassportRead");
+            }
+            return NotFound();
         }
     }
 }

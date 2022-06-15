@@ -24,8 +24,11 @@ namespace VeterinaryPassport.Controllers
                 searchString = currentFilter;
             }
             ViewData["CurrentFilter"] = searchString;
+           
             var vet = db.Vets.Select(v => v);
             int pageSize = 5;
+            if (!String.IsNullOrEmpty(searchString))
+                vet = vet.Where(s => s.Surname.Contains(searchString));
 
             return View(await Pagination<Vet>.CreatePaginationAsync(vet, pageNumber ?? 1, pageSize));
         }
@@ -33,7 +36,6 @@ namespace VeterinaryPassport.Controllers
         [HttpGet]
         public IActionResult VetCreate()
         {
-
             return View();
         }
 

@@ -3,6 +3,17 @@
 @{
     ViewBag.Title = "Владельцы";
 }
+
+<form asp-action="OwnerRead" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <b>Фамилия:</b> <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Поиск" class="btn btn-outline-secondary" /> |
+            <a asp-action="OwnerRead">Обратно к списку</a>
+        </p>
+    </div>
+</form>
+
   <a asp-action="OwnerCreate" class="btn btn-outline-secondary button-add">Добавить</a>
     <table class="table table-striped">
         <thead>

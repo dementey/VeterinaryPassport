@@ -7,9 +7,20 @@
 <div class="index-main">
     <div>
         <p>
-          <h2>Питомец</h2> @ViewBag.pet.Name @ViewBag.pet.Breed <h2>Владелец</h2> @ViewBag.owner.Surname @ViewBag.owner.Name @ViewBag.owner.Patronymic
+            <h2>Питомец</h2> @ViewBag.pet.Name @ViewBag.pet.Breed
+            <h2>Владелец</h2> @ViewBag.owner.Surname @ViewBag.owner.Name @ViewBag.owner.Patronymic
         </p>
-        <a asp-action="CreateVaccine" asp-route-id="@ViewBag.MedId" class="btn btn-outline-secondary button-add">Добавить</a>
+        <form asp-action="VaccineRead" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    <b>Название:</b> <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" value="Поиск" class="btn btn-outline-secondary" /> |
+                    <a asp-action="VaccineRead">Обратно к списку</a>
+                </p>
+            </div>
+        </form>
+
+        <a asp-controller="Vaccine" asp-action="VaccineCreate" asp-route-id="@ViewBag.passportId" class="btn btn-outline-secondary button-add">Добавить</a>
     </div>
 
     <table class="table table-striped">
@@ -41,8 +52,8 @@
                         <p>@item.Vet.Surname @item.Vet.Name @item.Vet.Patronymic</p>
                     </td>
                     <td>
-                        <a class="btn btn-outline-secondary" asp-controller="Vaccine" asp-action="EditVaccine" asp-route-id="@item.Id">Редактировать</a>
-                        <form asp-controller="Vaccine" asp-action="DeleteVaccine" asp-route-id="@item.Id">
+                        <a class="btn btn-outline-secondary" asp-controller="Vaccine" asp-action="VaccineEdit" asp-route-id="@item.Id">Редактировать</a>
+                        <form asp-controller="Vaccine" asp-action="VaccineDelete" asp-route-id="@item.Id">
                             <button class="btn btn-outline-danger">Удалить</button>
                         </form>
 

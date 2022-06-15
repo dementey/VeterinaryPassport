@@ -25,6 +25,8 @@ namespace VeterinaryPassport.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
             var owner = db.Owners.Select(o => o);
+            if (!String.IsNullOrEmpty(searchString))
+                owner = owner.Where(s => s.Surname.Contains(searchString));
             int pageSize = 5;
 
             return View(await Pagination<Owner>.CreatePaginationAsync(owner, pageNumber ?? 1, pageSize));
@@ -33,7 +35,6 @@ namespace VeterinaryPassport.Controllers
         [HttpGet]
         public IActionResult OwnerCreate()
         {
-
             return View();
         }
 

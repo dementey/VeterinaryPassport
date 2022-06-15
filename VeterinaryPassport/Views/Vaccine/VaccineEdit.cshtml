@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model VeterinaryPassport.Models.Vaccine
+
 @{
+    ViewBag.Title = "Редактирование прививки";
 }
+
+<div class="create-and-edit-form">
+    <form method="post" asp-controller="Vaccine" asp-action="VaccineEdit" asp-antiforgery="true">
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <div class="form-group-container">
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DateVaccination" class="control-label"></label>
+            <div class="form-group-container">
+                <input type="date" asp-for="DateVaccination" value="1999-01-01" class="form-control" />
+                <span asp-validation-for="DateVaccination" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="VetId" class="control-label"></label>
+            <div class="form-group-container">
+                <select asp-for="VetId" class="form-control" asp-items="ViewBag.VetList"></select>
+                <span asp-validation-for="VetId" class="text-danger"></span>
+            </div>
+        </div>
+        <input type="hidden" asp-for="PassportId" value="@ViewBag.passportId" class="form-control" />
+        <div class="form-group">
+            <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+        </div>
+    </form>
+</div>

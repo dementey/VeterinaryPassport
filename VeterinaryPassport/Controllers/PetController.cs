@@ -33,7 +33,6 @@ namespace VeterinaryPassport.Controllers
         [HttpGet]
         public IActionResult PetCreate()
         {
-
             return View();
         }
 

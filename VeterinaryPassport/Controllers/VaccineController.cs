@@ -1,6 +1,7 @@
 ﻿using VeterinaryPassport.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace VeterinaryPassport.Controllers
 {
@@ -24,25 +25,30 @@ namespace VeterinaryPassport.Controllers
                 searchString = currentFilter;
             }
             ViewData["CurrentFilter"] = searchString;
-           
 
-            var vaccine = db.Vaccines.Where(v => v.PassportId == id).Include(vet => vet.Vet)
-                .Include(p =>p.Passport).ThenInclude(pet => pet.Pet).Select(va => va);
+            var vaccine = db.Vaccines.Where(v => v.PassportId == id)
+                .Include(vet => vet.Vet)
+                .Include(p => p.Passport).ThenInclude(pet => pet.Pet)
+                .Select(va => va);
+            Passport passport = await db.Passports.FirstOrDefaultAsync(pas => pas.Id == id);
+            Pet pet = await db.Pets.FirstOrDefaultAsync(p => p.Id == passport.PetId);
+            Owner owner = await db.Owners.FirstOrDefaultAsync(o => o.Id == passport.OwnerId);
+            ViewBag.pet = pet;
+            ViewBag.owner = owner;
+            ViewBag.passportId = passport.Id;
 
-            //Pet pet = await db.Pets.FirstOrDefaultAsync(p => p.Id == id);
-            //pet.Passport = await db.Passports.FirstOrDefaultAsync(p => p.Id == id);
-            //ViewBag.pet = pet;
-            //ViewBag.owner = await db.Owners.FirstOrDefaultAsync(o => o.Id == pet.Passport.Id);
-            //passport.Owner = await db.Owners.FirstOrDefaultAsync(o => o.Id == passport.OwnerId);
-            //passport.Pet = await db.Pets.FirstOrDefaultAsync(p => p.Id == passport.PetId);
+            if (!String.IsNullOrEmpty(searchString))
+                vaccine = vaccine.Where(s => s.Name.Contains(searchString));
             int pageSize = 5;
 
             return View(await Pagination<Vaccine>.CreatePaginationAsync(vaccine, pageNumber ?? 1, pageSize));
         }
 
         [HttpGet]
-        public IActionResult VaccineCreate()
+        public IActionResult VaccineCreate(int? id)
         {
+            ViewBag.passportId = id;
+            ViewData["VetList"] = new SelectList(db.Vets, "Id", "Surname");
 
             return View();
         }
@@ -55,9 +61,15 @@ namespace VeterinaryPassport.Controllers
                 await db.Vaccines.AddAsync(vaccine);
                 await db.SaveChangesAsync();
 
-                return RedirectToAction("VaccineRead");
+                return RedirectToAction("VaccineRead", "Vaccine", new { id = vaccine.PassportId });
             }
-            return View(vaccine);
+            else
+            {
+                ViewBag.passportId = vaccine.PassportId;
+                ViewData["VetList"] = new SelectList(db.Vets, "Id", "Surname");
+
+                return View(vaccine);
+            }
         }
 
         [HttpGet]
@@ -66,6 +78,8 @@ namespace VeterinaryPassport.Controllers
             if (id != null)
             {
                 Vaccine vaccine = await db.Vaccines.FirstOrDefaultAsync(v => v.Id == id);
+                ViewBag.passportId = vaccine.PassportId;
+                ViewData["VetList"] = new SelectList(db.Vets, "Id", "Surname");
                 if (vaccine != null)
                     return View(vaccine);
             }
@@ -80,8 +94,11 @@ namespace VeterinaryPassport.Controllers
                 db.Vaccines.Update(vaccine);
                 await db.SaveChangesAsync();
 
-                return RedirectToAction("VaccineRead");
+                return RedirectToAction("VaccineRead", "Vaccine", new { id = vaccine.PassportId });
             }
+            ViewBag.passportId = vaccine.PassportId;
+            ViewData["VetList"] = new SelectList(db.Vets, "Id", "Surname");
+
             return View(vaccine);
         }
 
@@ -94,7 +111,7 @@ namespace VeterinaryPassport.Controllers
                 db.Vaccines.Remove(vaccine);
                 await db.SaveChangesAsync();
 
-                return RedirectToAction("VaccineRead");
+                return RedirectToAction("VaccineRead", "Vaccine", new { id = vaccine.PassportId });
             }
             return NotFound();
         }
