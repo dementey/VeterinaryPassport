@@ -5,16 +5,20 @@
 }
 
 <form asp-action="PassportRead" method="get">
-    <div class="form-actions no-color">
-        <p>
-            <b>Фамилия:</b> <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+    <div class="form-actions no-color surname-box">
+        
+            <b>Фамилия:</b> <input type="text" name="SearchString" class="search-input" value="@ViewData["CurrentFilter"]" />
             <input type="submit" value="Поиск" class="btn btn-outline-secondary" /> |
-            <a asp-action="PassportRead">Обратно к списку</a>
-        </p>
+
+            <a asp-action="PassportRead" class="btn btn-outline-secondary field-btn">
+                Обратно к списку
+            </a>
+           
+        
     </div>
 </form>
 
-<a asp-action="PassportCreate" class="btn btn-outline-secondary button-add">Добавить</a>
+<a asp-action="PassportCreate" class="btn btn-outline-secondary button-add create-btn">Создать новый паспорт</a>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -35,12 +39,12 @@
                     <p>@item.Pet.Name @item.Pet.Breed</p>
                 </td>
                 <td>
-                    <p>@item.Owner.Surname @item.Owner.Name @item.Owner.Surname</p>
+                    <p>@item.Owner.Surname @item.Owner.Name @item.Owner.Patronymic</p>
                 </td>
-                <td>
-                    <a class="btn btn-outline-secondary" asp-controller="Passport" asp-action="PassportDetail" asp-route-id="@item.Id">Подробней</a>
+                <td class="field-buttons">
+                    <a class="btn btn-outline-secondary field-btn" asp-controller="Passport" asp-action="PassportDetail" asp-route-id="@item.Id">Подробнее</a>
                     <form asp-controller="Passport" asp-action="PassportDelete" asp-route-id="@item.Id">
-                        <button class="btn btn-outline-danger">Удалить</button>
+                        <button class="btn btn-outline-danger field-btn">Удалить</button>
                     </form>
                 </td>
             </tr>
