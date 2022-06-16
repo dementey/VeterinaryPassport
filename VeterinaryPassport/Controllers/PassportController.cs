@@ -70,6 +70,8 @@ namespace VeterinaryPassport.Controllers
 
             ViewData["CurrentFilter"] = searchString;
             var owner = db.Owners.Select(o => o);
+            if (!String.IsNullOrEmpty(searchString))
+                owner = owner.Where(s => s.Surname.Contains(searchString));
             int pageSize = 5;
             ViewBag.pet = pet;
 

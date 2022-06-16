@@ -3,7 +3,30 @@
 @{
     ViewBag.Title = "Владельцы";
 }
- @* <a asp-action="OwnerCreate" class="btn btn-outline-secondary button-add">Добавить</a>*@
+<form asp-action="PassportCreateNext" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <b>Фамилия:</b> <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="hidden" name="name" value="@ViewBag.pet.Name" />
+            <input type="hidden" name="kind" value="@ViewBag.pet.Kind" />
+            <input type="hidden" name="breed" value="@ViewBag.pet.Breed" />
+            <input type="hidden" name="dob" value="@ViewBag.pet.DOB" />
+            <input type="hidden" name="sex" value="@ViewBag.pet.Sex" />
+            <input type="submit" value="Поиск" class="btn btn-outline-secondary" />
+            |
+            <a asp-action="PassportCreateNext"  asp-route-name="@ViewBag.pet.Name"
+                        asp-route-breed="@ViewBag.pet.Breed"
+                        asp-route-kind="@ViewBag.pet.Kind"
+                        asp-route-dob="@ViewBag.pet.DOB"
+                        asp-route-sex="@ViewBag.pet.Sex" >Обратно к списку</a> 
+        </p>
+    </div>
+</form>
+@*input type="hidden" name="name" name="@ViewBag.pet.Name" />
+            <input type="hidden" name="bread" name="@ViewBag.pet.Bread" />
+            <input type="hidden" name="kind" name="@ViewBag.pet.Kind" />
+            <input type="hidden" name="dob" name="@ViewBag.pet.DOB" />
+            <input type="hidden" name="sex" name="@ViewBag.pet.Sex" />*@
     <table class="table table-striped">
         <thead>
             <tr>
