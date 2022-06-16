@@ -17,10 +17,39 @@ namespace VeterinaryPassport.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("VeterinaryPassport.Models.Account.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "user"
+                        });
+                });
 
             modelBuilder.Entity("VeterinaryPassport.Models.Owner", b =>
                 {
@@ -126,6 +155,46 @@ namespace VeterinaryPassport.Migrations
                     b.ToTable("Pets");
                 });
 
+            modelBuilder.Entity("VeterinaryPassport.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("VetId");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Login = "admin",
+                            Password = "admin",
+                            RoleId = 1
+                        });
+                });
+
             modelBuilder.Entity("VeterinaryPassport.Models.Vaccine", b =>
                 {
                     b.Property<int>("Id")
@@ -212,6 +281,21 @@ namespace VeterinaryPassport.Migrations
                     b.Navigation("Pet");
                 });
 
+            modelBuilder.Entity("VeterinaryPassport.Models.User", b =>
+                {
+                    b.HasOne("VeterinaryPassport.Models.Account.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId");
+
+                    b.HasOne("VeterinaryPassport.Models.Vet", "Vet")
+                        .WithMany()
+                        .HasForeignKey("VetId");
+
+                    b.Navigation("Role");
+
+                    b.Navigation("Vet");
+                });
+
             modelBuilder.Entity("VeterinaryPassport.Models.Vaccine", b =>
                 {
                     b.HasOne("VeterinaryPassport.Models.Passport", "Passport")
@@ -229,6 +313,11 @@ namespace VeterinaryPassport.Migrations
                     b.Navigation("Passport");
 
                     b.Navigation("Vet");
+                });
+
+            modelBuilder.Entity("VeterinaryPassport.Models.Account.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("VeterinaryPassport.Models.Owner", b =>

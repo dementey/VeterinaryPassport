@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VeterinaryPassport.Controllers
 {
+    [Authorize(Roles = "user")]
     public class PassportController : Controller
     {
         Context db;

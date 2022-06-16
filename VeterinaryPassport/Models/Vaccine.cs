@@ -6,7 +6,6 @@ namespace VeterinaryPassport.Models
     {
         public int Id { get; set; }
         [Display(Name = "Название прививки")]
-        [RegularExpression(@"[А-Я][а-я]+", ErrorMessage = "Некорректный ввод")]
         [Required(ErrorMessage = "Поле не указано")]
         [StringLength(30, MinimumLength = 3, ErrorMessage = "Длина должна быть от 3 до 30 символов")]
         public string Name { get; set; }

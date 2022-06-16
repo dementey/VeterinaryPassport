@@ -1,9 +1,11 @@
 ﻿using VeterinaryPassport.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VeterinaryPassport.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class VetController : Controller
     {
         Context db;
@@ -45,6 +47,18 @@ namespace VeterinaryPassport.Controllers
             if (ModelState.IsValid)
             {
                 await db.Vets.AddAsync(vet);
+
+                User user = new()
+                {
+                    Vet = vet,
+                    Login = vet.Login,
+                    Password = vet.Password,
+                    VetId = vet.Id,
+                    RoleId = 2
+                };
+
+                await db.Users.AddAsync(user);
+
                 await db.SaveChangesAsync();
 
                 return RedirectToAction("VetRead");
@@ -69,6 +83,10 @@ namespace VeterinaryPassport.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await db.Users.FirstOrDefaultAsync(u => u.VetId == vet.Id);
+                user.Login = vet.Login;
+                user.Password = vet.Password;
+                db.Users.Update(user);
                 db.Vets.Update(vet);
                 await db.SaveChangesAsync();
 
