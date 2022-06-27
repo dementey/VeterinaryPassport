@@ -1,4 +1,9 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿//let fileName = ""
 
-// Write your JavaScript code.
+//let function1 = function (files) {
+//    let file = files[0];
+//    alert(file.name); //имя файла
+//    fileName = file.name
+//    document.getElementById("fileName").innerHTML = fileName;
+//    console.log(fileName)
+//}

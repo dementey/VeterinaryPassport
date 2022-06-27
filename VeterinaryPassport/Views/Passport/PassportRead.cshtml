@@ -6,15 +6,15 @@
 
 <form asp-action="PassportRead" method="get">
     <div class="form-actions no-color surname-box">
-        
-            <b>Фамилия:</b> <input type="text" name="SearchString" class="search-input" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Поиск" class="btn btn-outline-secondary" /> |
 
-            <a asp-action="PassportRead" class="btn btn-outline-secondary field-btn">
-                Обратно к списку
-            </a>
-           
-        
+        <b>Фамилия:</b> <input type="text" name="SearchString" class="search-input" value="@ViewData["CurrentFilter"]" />
+        <input type="submit" value="Поиск" class="btn btn-outline-secondary" /> |
+
+        <a asp-action="PassportRead" class="btn btn-outline-secondary field-btn">
+            Обратно к списку
+        </a>
+
+
     </div>
 </form>
 
@@ -35,6 +35,9 @@
         @foreach (Passport item in Model)
         {
             <tr>
+                <td>
+                    <img src="~/img/@item.Pet.ImageName" alt="" height=100 width=200 />
+                </td>
                 <td>
                     <p>@item.Pet.Name @item.Pet.Breed</p>
                 </td>

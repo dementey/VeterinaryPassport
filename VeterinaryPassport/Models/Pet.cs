@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace VeterinaryPassport.Models
 {
@@ -27,6 +28,8 @@ namespace VeterinaryPassport.Models
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Поле не указано")]
         public DateTime DOB { get; set; }
+        //[AllowHtml]
+        public string? ImageName { get; set; }
         public Passport? Passport { get; set; }
     }
 }

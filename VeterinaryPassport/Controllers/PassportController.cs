@@ -51,10 +51,26 @@ namespace VeterinaryPassport.Controllers
         }
 
         [HttpPost]
-        public IActionResult PassportCreate(Pet pet, int id)
+        public async Task<IActionResult> PassportCreate(Pet pet, int id)
         {
+
             if (ModelState.IsValid)
+            {
+                var file = Request.Form.Files.FirstOrDefault();
+                if (file != null)
+                {
+                    using (var stream = new FileStream(@"wwwroot\img\" + file.FileName, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    pet.ImageName = $"{file.FileName}";
+                }
+                else
+                {
+                    pet.ImageName = "Нет_фото.png";
+                }
                 return RedirectToAction("PassportCreateNext", pet);
+            }
             return View(pet);
         }
 
@@ -81,7 +97,7 @@ namespace VeterinaryPassport.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PassportCreateNext(string name, string breed, string kind, DateTime dob, string sex, int ownerId)
+        public async Task<IActionResult> PassportCreateNext(string name, string breed, string kind, DateTime dob, string sex, int ownerId,string imageName)
         {
             Pet pet = new()
             {
@@ -89,7 +105,8 @@ namespace VeterinaryPassport.Controllers
                 Breed = breed,
                 DOB = dob,
                 Kind = kind,
-                Sex = sex
+                Sex = sex,
+                ImageName = imageName
             };
 
             await db.Pets.AddAsync(pet);
