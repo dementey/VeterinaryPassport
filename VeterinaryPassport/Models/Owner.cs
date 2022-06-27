@@ -27,13 +27,6 @@ namespace VeterinaryPassport.Models
         [Required(ErrorMessage = "Поле не указано")]
         [StringLength(12, MinimumLength = 12, ErrorMessage = "Длина должна быть 12 цифр")]
         public string PhoneNumber { get; set; }
-        [Display(Name = "Логин")]
-        //[EmailAddress(ErrorMessage = "Почта указана не верна")]
-        [Required(ErrorMessage = "Поле не указано")]
-        public string Login { get; set; }
-        [Display(Name = "Пароль")]
-        [Required(ErrorMessage = "Поле не указано")]
-        public string Password { get; set; }
         public List<Passport> Passports { get; set; } = new List<Passport>();
     }
 }

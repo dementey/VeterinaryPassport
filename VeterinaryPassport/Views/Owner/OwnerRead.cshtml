@@ -33,12 +33,6 @@
                  <th>
                     <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Address)</p>
                 </th>
-                <th>
-                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Login)</p>
-                </th>
-                <th>
-                    <p>@Html.DisplayNameFor(model => model.FirstOrDefault().Password)</p>
-                </th>
                 <th></th>
             </tr>
         </thead>
@@ -60,12 +54,6 @@
                     </td>
                     <td>
                         <p>@item.Address</p>
-                    </td>
-                    <td>
-                        <p>@item.Login</p>
-                    </td>
-                    <td>
-                        <p>@item.Password</p>
                     </td>
                     <td>
                         <a class="btn btn-outline-secondary" asp-controller="Owner" asp-action="OwnerEdit" asp-route-id="@item.Id">Редактировать</a>
