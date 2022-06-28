@@ -37,8 +37,6 @@
             <tr>
                 <td>
                     <img src="~/img/@item.Pet.ImageName" alt="" height=100 width=200 />
-                </td>
-                <td>
                     <p>@item.Pet.Name @item.Pet.Breed</p>
                 </td>
                 <td>
@@ -46,6 +44,7 @@
                 </td>
                 <td class="field-buttons">
                     <a class="btn btn-outline-secondary field-btn" asp-controller="Passport" asp-action="PassportDetail" asp-route-id="@item.Id">Подробнее</a>
+                    <a class="btn btn-outline-secondary field-btn" asp-controller="Passport" asp-action="PassportEdit" asp-route-id="@item.Id">Редактировать</a>
                     <form asp-controller="Passport" asp-action="PassportDelete" asp-route-id="@item.Id">
                         <button class="btn btn-outline-danger field-btn">Удалить</button>
                     </form>

@@ -45,7 +45,6 @@ namespace VeterinaryPassport.Controllers
         [HttpGet]
         public IActionResult PassportCreate()
         {
-            ViewData["VaccinesListId"] = new SelectList(db.Owners, "Id", "Name");
 
             return View();
         }
@@ -53,7 +52,6 @@ namespace VeterinaryPassport.Controllers
         [HttpPost]
         public async Task<IActionResult> PassportCreate(Pet pet, int id)
         {
-
             if (ModelState.IsValid)
             {
                 var file = Request.Form.Files.FirstOrDefault();
@@ -123,7 +121,44 @@ namespace VeterinaryPassport.Controllers
 
             return RedirectToAction("PassportRead");
         }
-
+        [HttpGet]
+        public async Task<IActionResult> PassportEdit(int? id)
+        {
+            if (id != null)
+            {
+                Passport passport = await db.Passports.FirstOrDefaultAsync(p => p.Id == id);
+                Pet pet = await db.Pets.FirstOrDefaultAsync(p => p.Id == passport.PetId);
+                if(pet != null)
+                {
+                    return View(pet);
+                }
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public async Task<IActionResult> PassportEdit(Pet pet)
+        {
+            if (ModelState.IsValid)
+            {
+                var file = Request.Form.Files.FirstOrDefault();
+                if (file != null)
+                {
+                    using (var stream = new FileStream(@"wwwroot\img\" + file.FileName, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    pet.ImageName = $"{file.FileName}";
+                }
+                else
+                {
+                    pet.ImageName = "Нет_фото.png";
+                }
+                db.Pets.Update(pet);
+                await db.SaveChangesAsync();
+                return RedirectToAction("PassportRead");
+            }
+            return View(pet);
+        }
         [HttpGet]
         public async Task<IActionResult> PassportDetail(int? id)
         {

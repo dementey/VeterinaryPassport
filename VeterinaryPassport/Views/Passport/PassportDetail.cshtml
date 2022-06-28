@@ -7,6 +7,7 @@
 <div class="details-main">
     <div>
         <h1>Питомец</h1>
+        <img src="~/img/@Model.Pet.ImageName" alt="" height=100 width=200 />
         <p><b>Кличка:</b> @Model.Pet.Name</p>
         <p><b>Вид:</b> @Model.Pet.Kind</p>
         <p><b>Пол:</b> @Model.Pet.Sex</p>
@@ -18,27 +19,5 @@
         <p><b>Адрес:</b> @Model.Owner.Address</p>
     </div>
       <a class="btn btn-outline-secondary" asp-controller="Vaccine" asp-action="VaccineRead" asp-route-id="@Model.Id">Прививки</a>
-    @*<div class="details-main-right">
-        <a class="details-a" asp-controller="Disease" asp-action="Index" asp-route-id="@Model.Id">
-            <div class="frame">
-                <div class="images-disease"></div>
-                <p class="frame-title">Заболевания</p>
-                <p>Здесь расположены перенесенные заболевания пациента</p>
-            </div>
-        </a>
-        <a class="details-a" asp-controller="Anthropological" asp-action="Index" asp-route-id="@Model.Id">
-            <div class="frame">
-                <div class="images-anthropological"></div>
-                <p class="frame-title">Антропологические измерения</p>
-                <p>Здесь находятся измерения роста и веса пациента</p>
-            </div>
-        </a>
-        <a class="details-a" asp-controller="Vaccine" asp-action="Index" asp-route-id="@Model.Id">
-            <div class="frame">
-                <div class="images-vaccine"></div>
-                <p class="frame-title">Прививки</p>
-                <p>Здесь записываются все прививки, которые были сделаны пациенту</p>
-            </div>
-        </a>*@
 </div>
 </div>

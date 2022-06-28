@@ -29,6 +29,7 @@ namespace VeterinaryPassport.Models
         [Required(ErrorMessage = "Поле не указано")]
         public DateTime DOB { get; set; }
         //[AllowHtml]
+        [Display(Name = "Фото питомца")]
         public string? ImageName { get; set; }
         public Passport? Passport { get; set; }
     }
