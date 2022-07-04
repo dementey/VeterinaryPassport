@@ -47,10 +47,11 @@ namespace VeterinaryPassport.Controllers
         }
 
         [HttpGet]
-        public IActionResult VaccineCreate(int? id)
+        public async Task<IActionResult> VaccineCreate(int? id)
         {
             ViewBag.passportId = id;
             ViewData["VetList"] = new SelectList(db.Vets, "Id", "Surname");
+            ViewData["Vet"] = await db.Vets.FirstOrDefaultAsync(v => v.Login == User.Identity.Name);
 
             return View();
         }
@@ -68,7 +69,7 @@ namespace VeterinaryPassport.Controllers
             else
             {
                 ViewBag.passportId = vaccine.PassportId;
-                ViewData["VetList"] = new SelectList(db.Vets, "Id", "Surname");
+                ViewData["Vet"] = await db.Vets.FirstOrDefaultAsync(v => v.Login == User.Identity.Name);
 
                 return View(vaccine);
             }
@@ -80,10 +81,20 @@ namespace VeterinaryPassport.Controllers
             if (id != null)
             {
                 Vaccine vaccine = await db.Vaccines.FirstOrDefaultAsync(v => v.Id == id);
+                Vet vet = await db.Vets.FirstOrDefaultAsync(v => v.Login == User.Identity.Name);
+                bool isCorrectVet = vet.Id == vaccine.VetId;
+                if (!isCorrectVet)
+                {
+                    return RedirectToAction($"VaccineRead", "Vaccine", new { id = vaccine.PassportId });
+                }
                 ViewBag.passportId = vaccine.PassportId;
                 ViewData["VetList"] = new SelectList(db.Vets, "Id", "Surname");
+                ViewData["Vet"] = await db.Vets.FirstOrDefaultAsync(v => v.Login == User.Identity.Name);
                 if (vaccine != null)
+                {
                     return View(vaccine);
+                }
+                    
             }
             return NotFound();
         }
@@ -100,6 +111,7 @@ namespace VeterinaryPassport.Controllers
             }
             ViewBag.passportId = vaccine.PassportId;
             ViewData["VetList"] = new SelectList(db.Vets, "Id", "Surname");
+            ViewData["Vet"] = await db.Vets.FirstOrDefaultAsync(v => v.Login == User.Identity.Name);
 
             return View(vaccine);
         }
@@ -110,6 +122,12 @@ namespace VeterinaryPassport.Controllers
             if (id != null)
             {
                 Vaccine vaccine = await db.Vaccines.FirstOrDefaultAsync(v => v.Id == id);
+                Vet vet = await db.Vets.FirstOrDefaultAsync(v => v.Login == User.Identity.Name);
+                bool isCorrectVet = vet.Id == vaccine.VetId;
+                if (!isCorrectVet)
+                {
+                    return RedirectToAction($"VaccineRead", "Vaccine", new { id = vaccine.PassportId });
+                }
                 db.Vaccines.Remove(vaccine);
                 await db.SaveChangesAsync();
 

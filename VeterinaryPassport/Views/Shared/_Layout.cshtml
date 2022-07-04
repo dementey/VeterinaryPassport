@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject Context context
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,7 +25,8 @@
             </div>
             <div class="container-fluid2">
                 @{
-                    ViewData["Doc"] = User.Identity.Name == null ? Html.ActionLink("Войти", "Login", "Account", null, htmlAttributes: new { @class = "header-b" }) : "Пользователь " + User.Identity.Name;
+                    var vet = context.Vets.FirstOrDefault(v => v.Login == User.Identity.Name);
+                    ViewData["Doc"] = User.Identity.Name == null ? Html.ActionLink("Войти", "Login", "Account", null, htmlAttributes: new { @class = "header-b" }) : "Пользователь " + vet.Name + " " + vet.Patronymic;
                 }
                 <p class="header-a">@ViewData["Doc"] </p>
                 @*Показать кнопку выход если человек авторизовался*@
