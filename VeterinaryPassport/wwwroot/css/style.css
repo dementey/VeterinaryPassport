@@ -38,12 +38,12 @@ a.nav-link.link-color:hover {
 .container-fluid {
     display: flex;
     margin: 0 100px 0 0;
-    width: 40%;
+    width: 25%;
 }
 
 .container-fluid2 {
     display: flex;
-    margin: 0 0 0 30%;
+    margin: 0 0 0 45%;
 }
 
 .header-a {
@@ -66,11 +66,11 @@ a.nav-link.link-color:hover {
     border-radius: 0.25rem;
 }
 
-.exit-button:hover {
-    transition: ease-out 0.3s;
-    transform: translateY(-1px);
-    background-color: indianred;
-}
+    .exit-button:hover {
+        transition: ease-out 0.3s;
+        transform: translateY(-1px);
+        background-color: indianred;
+    }
 
 .footer {
     display: flex;
@@ -100,7 +100,7 @@ a.nav-link.link-color:hover {
     height: 36px;
 }
 
-.create-btn{
+.create-btn {
     margin: 25px 0 25px 0;
     background-color: cadetblue;
     color: white;
@@ -110,6 +110,8 @@ a.nav-link.link-color:hover {
     display: flex;
     flex-direction: row;
     justify-content: end;
+    border: none;
+    margin-bottom: 40px;
 }
 
 .field-btn {
@@ -117,3 +119,91 @@ a.nav-link.link-color:hover {
 }
 
 
+/*Passport Read-------------------------------------------------------*/
+
+.pet-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 1px solid #767676;
+    object-fit: cover;
+}
+
+td.owner-name {
+    line-height: 200px;
+}
+
+.main-table-row:nth-child(odd) {
+    background-color: #f2f2f2
+}
+
+.pet-name-under-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Passport Read-------------------------------------------------------*/
+
+.details-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.pet-details {
+    padding-bottom: 20px;
+    border-bottom: 1px solid black;
+}
+
+.pet-details-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    width: 40%
+}
+
+.details-title {
+    font-weight: bold;
+    font-size: 30px;
+    margin: 10px 0 20px 0;
+}
+
+.pet-img-details {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 1px solid #767676;
+    object-fit: cover;
+    margin: 0 20px 15px 0;
+}
+
+/*Passport Edit-------------------------------------------------------*/
+
+.create-and-edit-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-group {
+    width: 800px;
+    margin: 20px 0 20px 0;
+}
+
+.save-btn-passport-edit {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.control-label {
+    font-weight: bold;
+}
+
+.create-next-surname-box {
+    margin-bottom: 30px;
+}

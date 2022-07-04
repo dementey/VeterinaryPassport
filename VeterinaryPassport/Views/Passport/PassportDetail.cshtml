@@ -5,19 +5,35 @@
 }
 
 <div class="details-main">
-    <div>
-        <h1>Питомец</h1>
-        <img src="~/img/@Model.Pet.ImageName" alt="" height=100 width=200 />
-        <p><b>Кличка:</b> @Model.Pet.Name</p>
-        <p><b>Вид:</b> @Model.Pet.Kind</p>
-        <p><b>Пол:</b> @Model.Pet.Sex</p>
-        <p><b>Порода:</b> @Model.Pet.Breed</p>
-        <p><b>Дата рождения:</b> @Model.Pet.DOB.ToString("dd/MM/yyyy")</p>
-        <h1>Владелец</h1>
+    @*<div>*@
+    <div class="pet-details">
+        <p class="details-title">Питомец</p>
+        <div class="pet-details-inner">
+            <div>
+                <img src="~/img/@Model.Pet.ImageName" class="pet-img-details" alt="Фото питомца" height=100 width=200 />
+            </div>
+            <div>
+                <p><b>Кличка:</b> @Model.Pet.Name</p>
+                <p><b>Вид:</b> @Model.Pet.Kind</p>
+                <p><b>Пол:</b> @Model.Pet.Sex</p>
+                <p><b>Порода:</b> @Model.Pet.Breed</p>
+                <p><b>Дата рождения:</b> @Model.Pet.DOB.ToString("dd/MM/yyyy")</p>
+               <a class="btn btn-outline-secondary details-btn" asp-controller="Vaccine" asp-action="VaccineRead" asp-route-id="@Model.Id">Прививки</a>
+            </div>
+             
+        </div>
+
+    </div>
+
+    <div class="owner-details">
+        <p class="details-title">Владелец</p>
         <p><b>Владелец:</b>  @Model.Owner.Surname @Model.Owner.Name @Model.Owner.Patronymic</p>
         <p><b>Телефон:</b> @Model.Owner.PhoneNumber</p>
         <p><b>Адрес:</b> @Model.Owner.Address</p>
     </div>
-      <a class="btn btn-outline-secondary" asp-controller="Vaccine" asp-action="VaccineRead" asp-route-id="@Model.Id">Прививки</a>
+
+
+    @*  </div>*@
+
 </div>
 </div>

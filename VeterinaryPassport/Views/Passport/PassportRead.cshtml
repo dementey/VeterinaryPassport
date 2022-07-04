@@ -19,9 +19,9 @@
 </form>
 
 <a asp-action="PassportCreate" class="btn btn-outline-secondary button-add create-btn">Создать новый паспорт</a>
-<table class="table table-striped">
-    <thead>
-        <tr>
+<table class="table table-stripes">
+   <thead>
+        <tr  >
             <th>
                 <p>@Html.DisplayNameFor(model => model.FirstOrDefault().PetId)</p>
             </th>
@@ -31,15 +31,16 @@
             <th></th>
         </tr>
     </thead>
+    
     <tbody>
         @foreach (Passport item in Model)
         {
-            <tr>
-                <td>
-                    <img src="~/img/@item.Pet.ImageName" alt="" height=100 width=200 />
+            <tr class="main-table-row" >
+                <td class="pet-name-under-img" >
+                    <img src="~/img/@item.Pet.ImageName" alt="Фото питомца" class="pet-image" />
                     <p>@item.Pet.Name @item.Pet.Breed</p>
                 </td>
-                <td>
+                <td class="owner-name">
                     <p>@item.Owner.Surname @item.Owner.Name @item.Owner.Patronymic</p>
                 </td>
                 <td class="field-buttons">

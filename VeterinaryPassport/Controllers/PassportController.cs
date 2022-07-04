@@ -65,7 +65,7 @@ namespace VeterinaryPassport.Controllers
                 }
                 else
                 {
-                    pet.ImageName = "Нет_фото.png";
+                    pet.ImageName = "no-image.jpg";
                 }
                 return RedirectToAction("PassportCreateNext", pet);
             }
