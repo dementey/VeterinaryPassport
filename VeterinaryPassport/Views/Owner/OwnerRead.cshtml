@@ -6,15 +6,15 @@
 
 <form asp-action="OwnerRead" method="get">
     <div class="form-actions no-color">
-        <p>
+        <div class="surname-box">
             <b>Фамилия:</b> <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
             <input type="submit" value="Поиск" class="btn btn-outline-secondary" /> |
-            <a asp-action="OwnerRead">Обратно к списку</a>
-        </p>
+            <a asp-action="OwnerRead" class="btn btn-outline-secondary field-btn">Обратно к списку</a>
+        </div>
     </div>
 </form>
 
-  <a asp-action="OwnerCreate" class="btn btn-outline-secondary button-add">Добавить</a>
+  <a asp-action="OwnerCreate" class="btn btn-outline-secondary button-add owner-read-button-add">Добавить</a>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -55,7 +55,7 @@
                     <td>
                         <p>@item.Address</p>
                     </td>
-                    <td>
+                    <td class="owner-read-btns">
                         <a class="btn btn-outline-secondary" asp-controller="Owner" asp-action="OwnerEdit" asp-route-id="@item.Id">Редактировать</a>
                         <form asp-controller="Owner" asp-action="OwnerDelete" asp-route-id="@item.Id">
                             <button class="btn btn-outline-danger">Удалить</button>

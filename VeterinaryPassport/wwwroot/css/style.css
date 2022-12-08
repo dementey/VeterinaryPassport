@@ -21,6 +21,21 @@ body > header > nav > div.container-fluid > a.navbar-brand {
     color: white;
 }
 
+.header-b {
+    display: flex;
+    align-items: center;
+    margin: 0 30px 0 10px;
+    width: 150px;
+    text-decoration: none;
+    color: white;
+}
+
+    .header-b:hover {
+        transition: ease-out 0.3s;
+        transform: translateY(-1px);
+        color: lightgray;
+    }
+
 a.navbar-brand.link-color:hover {
     color: darkgoldenrod;
     cursor: pointer;
@@ -86,8 +101,11 @@ a.nav-link.link-color:hover {
     color: white;
 }
 
+.passport-create-select {
+    width: 30%;
+    height: 38px;
+}
 /*--------------------------PassportRead------------------------------------------*/
-
 .surname-box {
     display: flex;
     align-items: center;
@@ -206,4 +224,68 @@ td.owner-name {
 
 .create-next-surname-box {
     margin-bottom: 30px;
+}
+
+/*Login-------------------------------------------------------*/
+
+.sign-in-main {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.sign-in-form {
+    width: 500px;
+    height: 300px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin: 15px 0 0 0;
+}
+
+.sign-in-form-group {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.sign-in-btn {
+    width: 150px;
+    align-self: center;
+    margin-top: 25px;
+}
+
+.sign-in-form-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-in-input {
+    height: 43px;
+    border-radius: 6px;
+    border-color: lightgrey;
+}
+
+/*OwnerRead-------------------------------------------------------*/
+
+.owner-read-btns {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+}
+
+.owner-read-button-add {
+    margin-top: 20px;
+}
+
+.vet-read-button-add {
+    margin: 25px 0 25px 0;
+}
+
+.vet-read-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }

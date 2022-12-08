@@ -26,7 +26,14 @@
             <div class="container-fluid2">
                 @{
                     var vet = context.Vets.FirstOrDefault(v => v.Login == User.Identity.Name);
-                    ViewData["Doc"] = User.Identity.Name == null ? Html.ActionLink("Войти", "Login", "Account", null, htmlAttributes: new { @class = "header-b" }) : "Пользователь " + vet.Name + " " + vet.Patronymic;
+                    if (vet != null)
+                    {
+                        ViewData["Doc"] = User.Identity.Name == null ? Html.ActionLink("Войти", "Login", "Account", null, htmlAttributes: new { @class = "header-b" }) : "Пользователь " + vet?.Name + " " + vet?.Patronymic;
+                    }
+                    else
+                    {
+                        ViewData["Doc"] = User.Identity.Name == null ? Html.ActionLink("Войти", "Login", "Account", null, htmlAttributes: new { @class = "header-b" }) : "Пользователь " + User.Identity.Name;
+                    }
                 }
                 <p class="header-a">@ViewData["Doc"] </p>
                 @*Показать кнопку выход если человек авторизовался*@

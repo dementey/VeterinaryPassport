@@ -12,11 +12,11 @@
         </p>
         <form asp-action="VaccineRead" method="get">
             <div class="form-actions no-color">
-                <p>
+                <div class="surname-box">
                     <b>Название:</b> <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
                     <input type="submit" value="Поиск" class="btn btn-outline-secondary" /> |
                     <a asp-action="VaccineRead">Обратно к списку</a>
-                </p>
+                </div>
             </div>
         </form>
 
