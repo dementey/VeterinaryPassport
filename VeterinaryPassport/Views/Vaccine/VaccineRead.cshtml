@@ -14,6 +14,7 @@
             <div class="form-actions no-color">
                 <div class="surname-box">
                     <b>Название:</b> <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                      <b>Фамилия ветеринара: </b>@Html.DropDownList("Vaccines", "Все")
                     <input type="submit" value="Поиск" class="btn btn-outline-secondary" /> |
                     <a asp-action="VaccineRead">Обратно к списку</a>
                 </div>
@@ -21,6 +22,7 @@
         </form>
 
         <a asp-controller="Vaccine" asp-action="VaccineCreate" asp-route-id="@ViewBag.passportId" class="btn btn-outline-secondary button-add">Добавить</a>
+       
     </div>
 
     <table class="table table-striped">

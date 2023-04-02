@@ -101,7 +101,10 @@ namespace VeterinaryPassport.Controllers
             if (id != null)
             {
                 Vet vet = await db.Vets.FirstOrDefaultAsync(v => v.Id == id);
+                User user = await db.Users.FirstOrDefaultAsync(u => u.VetId == id);
                 db.Vets.Remove(vet);
+                db.Users.Remove(user);
+
                 await db.SaveChangesAsync();
 
                 return RedirectToAction("VetRead");

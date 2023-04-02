@@ -16,7 +16,7 @@ namespace VeterinaryPassport.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> VaccineRead(int? id, string currentFilter, string searchString, int? pageNumber)
+        public async Task<IActionResult> VaccineRead(int? id, string currentFilter, string searchString, int? pageNumber, string Vaccines = null)
         {
             if (searchString != null)
             {
@@ -39,8 +39,16 @@ namespace VeterinaryPassport.Controllers
             ViewBag.owner = owner;
             ViewBag.passportId = passport.Id;
 
+            var CountryLst = new List<string>();
+            CountryLst.AddRange(vaccine.Select(v => v.Vet.Surname).Distinct());
+            ViewData["Vaccines"] = new SelectList(CountryLst);
+
             if (!String.IsNullOrEmpty(searchString))
                 vaccine = vaccine.Where(s => s.Name.Contains(searchString));
+
+            if (!String.IsNullOrEmpty(Vaccines))
+                vaccine = vaccine.Where(s => s.Vet.Surname.Contains(Vaccines));
+
             int pageSize = 5;
 
             return View(await Pagination<Vaccine>.CreatePaginationAsync(vaccine, pageNumber ?? 1, pageSize));
